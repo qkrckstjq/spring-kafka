@@ -3,4 +3,10 @@ spring:
     name: kafka
 
   kafka:
-    
+    server: localhost:8081
+    consumer:
+      group-id: single
+      auto-offset-reset: earliest
+    producer:
+      retries: 3
+      acks: all
