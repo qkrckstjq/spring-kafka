@@ -10,3 +10,7 @@ spring:
     producer:
       retries: 3
       acks: all
+    topic:
+      name: test-topic
+      partitinos: 3
+      replication-factor: 1
