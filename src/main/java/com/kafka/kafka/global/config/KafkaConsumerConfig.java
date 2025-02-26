@@ -1,5 +1,7 @@
 package com.kafka.kafka.global.config;
 
+import com.kafka.kafka.global.properties.KafkaProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.provider.ConfigProvider;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -14,21 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@RequiredArgsConstructor
 public class KafkaConsumerConfig {
-    @Value("${spring.kafka.server}")
-    private String kafkaServer;
-
-    @Value("${spring.kafka.consumer.group-id}")
-    private String consumerGroupId;
-
-    @Value("${spring.kafka.consumer.auto-offset-reset}")
-    private String autoOffsetReset;
+    private final KafkaProperties kafkaProperties;
 
     @Bean
     public ConsumerFactory<String, String> consumerConfig() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
-        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getConsumer().getGroupId());
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(configProps);

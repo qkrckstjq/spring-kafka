@@ -3,7 +3,7 @@ spring:
     name: kafka
 
   kafka:
-    server: localhost:8081
+    bootstrap-servers: localhost:9092
     consumer:
       group-id: single
       auto-offset-reset: earliest
@@ -12,5 +12,5 @@ spring:
       acks: all
     topic:
       name: test-topic
-      partitinos: 3
+      partitions: 3
       replication-factor: 1

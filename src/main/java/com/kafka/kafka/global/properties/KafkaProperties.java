@@ -8,9 +8,32 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "spring.kafka.topic")
+@ConfigurationProperties(prefix = "spring.kafka")
 public class KafkaProperties {
-    private String name;
-    private String partitions;
-    private String replicationFactor;
+    private String bootstrapServers;
+    private ConsumerProperties consumer;
+    private ProducerProperties producer;
+    private TopicProperties topic;
+
+    @Getter
+    @Setter
+    public static class ConsumerProperties {
+        private String groupId;
+        private String autoOffsetReset;
+    }
+
+    @Getter
+    @Setter
+    public static class ProducerProperties {
+        private int retries ;
+        private String acks;
+    }
+
+    @Getter
+    @Setter
+    public static class TopicProperties {
+        private String name;
+        private int partitions;
+        private short replicationFactor;
+    }
 }
