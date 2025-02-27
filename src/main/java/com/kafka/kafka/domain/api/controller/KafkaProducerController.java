@@ -1,11 +1,9 @@
 package com.kafka.kafka.domain.api.controller;
 
 import com.kafka.kafka.domain.api.service.KafkaProducerService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/kafka/producer")
@@ -17,5 +15,5 @@ public class KafkaProducerController {
             @RequestBody String message
     ) {
         return producerService.sendMessage(message);
-    }
+    };
 }
