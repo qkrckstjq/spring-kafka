@@ -1,7 +1,7 @@
 package com.kafka.kafka.domain.api.controller;
 
+import com.kafka.kafka.domain.api.dto.KafkaProducerRequestDto.*;
 import com.kafka.kafka.domain.api.service.KafkaProducerService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,9 @@ public class KafkaProducerController {
 
     @PostMapping("/message")
     public String sendMessage(
-            @RequestBody String message
+            @RequestBody KafkaProducerSendMsgDto body
     ) {
-        return producerService.sendMessage(message);
+        return producerService.sendMessage(body);
     };
 
     @PostMapping("/topic")

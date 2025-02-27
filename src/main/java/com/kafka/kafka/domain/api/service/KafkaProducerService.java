@@ -1,5 +1,6 @@
 package com.kafka.kafka.domain.api.service;
 
+import com.kafka.kafka.domain.api.dto.KafkaProducerRequestDto.*;
 import com.kafka.kafka.global.properties.KafkaProperties;
 import com.kafka.kafka.global.properties.KafkaProperties.*;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,11 @@ public class KafkaProducerService {
     private final KafkaProperties kafkaProperties;
     private final AdminClient adminClient;
 
-    public String sendMessage(String message) {
-        kafkaTemplate.send(kafkaProperties.getTopic().getName(), message);
+    public String sendMessage(KafkaProducerSendMsgDto body) {
+        String topic = body.getTopic();
+        String message = body.getMessage();
+
+        kafkaTemplate.send(topic, message);
         return "success to send message " + message;
     }
 
