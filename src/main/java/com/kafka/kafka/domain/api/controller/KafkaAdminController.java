@@ -1,6 +1,7 @@
 package com.kafka.kafka.domain.api.controller;
 
 import com.kafka.kafka.domain.api.service.KafkaAdminService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.ListTopicsResult;

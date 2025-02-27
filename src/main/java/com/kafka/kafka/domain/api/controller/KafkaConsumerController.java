@@ -1,6 +1,7 @@
 package com.kafka.kafka.domain.api.controller;
 
-import lombok.Getter;
+import com.kafka.kafka.domain.api.dto.KafkaConsumerResponseDto.*;
+import com.kafka.kafka.domain.api.service.KafkaConsumerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ public class KafkaConsumerController {
     private final KafkaConsumerService kafkaConsumerService;
 
     @GetMapping("/topic")
-    public List<String> getTopicMessages(
+    public KafkaConsumerTopicMsgDto getTopicMessages(
             @RequestParam String topic
     ) {
         return kafkaConsumerService.getTopicMessages(topic);
