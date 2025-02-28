@@ -17,4 +17,11 @@ public class KafkaProducerController {
     ) {
         return producerService.sendMessage(body);
     };
+
+    @PostMapping("/batch/message")
+    public String sendBatchMessage(
+            @RequestBody KafkaProducerSendMsgDto body
+    )  {
+        return producerService.sendBatchMessage(body);
+    }
 }

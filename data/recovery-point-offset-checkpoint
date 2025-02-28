@@ -1,5 +1,5 @@
 0
-59
+62
 __consumer_offsets 13 0
 __consumer_offsets 46 0
 __consumer_offsets 9 0
@@ -9,21 +9,23 @@ __consumer_offsets 21 0
 __consumer_offsets 17 0
 test-topic 2 3
 __consumer_offsets 30 0
+admin-topic 2 0
 __consumer_offsets 26 0
 __consumer_offsets 5 0
 __consumer_offsets 38 0
 __consumer_offsets 1 0
-__consumer_offsets 34 64
+__consumer_offsets 34 72
 __consumer_offsets 16 0
 __consumer_offsets 45 0
 test-topic2 0 0
-__consumer_offsets 12 12
+__consumer_offsets 12 14
 __consumer_offsets 41 0
 __consumer_offsets 24 0
 __consumer_offsets 20 0
 __consumer_offsets 49 0
 __consumer_offsets 0 0
 __consumer_offsets 29 0
+admin-topic 1 0
 test-topic 1 1
 __consumer_offsets 25 0
 __consumer_offsets 8 0
@@ -41,6 +43,7 @@ __consumer_offsets 19 0
 __consumer_offsets 32 0
 test-topic 0 3
 __consumer_offsets 28 0
+admin-topic 0 0
 __consumer_offsets 7 0
 __consumer_offsets 40 0
 __consumer_offsets 3 0
