@@ -1,15 +1,9 @@
 package com.kafka.kafka.domain.api.controller;
 
 import com.kafka.kafka.domain.api.service.KafkaAdminService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.ListTopicsResult;
-import org.apache.kafka.clients.admin.TopicListing;
-import org.springframework.kafka.core.KafkaAdmin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -24,5 +18,13 @@ public class KafkaAdminController {
     @GetMapping("/topic")
     public List<String> getTopicList() throws ExecutionException, InterruptedException {
         return kafkaAdminService.getTopicList();
+    }
+
+    @PostMapping("/topic")
+    public String createNewTopic(
+            @RequestParam String topic
+    ) {
+        kafkaAdminService.createNewTopic(topic);
+        return "success to create topic '" + topic + "'";
     }
 }

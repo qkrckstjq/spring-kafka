@@ -17,12 +17,4 @@ public class KafkaProducerController {
     ) {
         return producerService.sendMessage(body);
     };
-
-    @PostMapping("/topic")
-    public String createTopic(
-            @RequestParam String topic
-    ) {
-        producerService.createTopic(topic);
-        return "success to create topic '" + topic + "'";
-    }
 }

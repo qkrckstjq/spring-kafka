@@ -26,17 +26,4 @@ public class KafkaProducerService {
         kafkaTemplate.send(topic, message);
         return "success to send message " + message;
     }
-
-    public void createTopic(String topic) {
-        TopicProperties topicProperties = kafkaProperties.getTopic();
-        NewTopic newTopic = new NewTopic(
-                topic,
-                topicProperties.getPartitions(),
-                topicProperties.getReplicationFactor()
-        );
-        Collection<NewTopic> topicList = new ArrayList<>();
-        topicList.add(newTopic);
-
-        adminClient.createTopics(topicList);
-    }
 }
