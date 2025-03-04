@@ -11,9 +11,28 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "spring.kafka")
 public class KafkaProperties {
     private String bootstrapServers;
+    private Security security;
+    private KafkaSecurityProperties securityProperties;
     private ConsumerProperties consumer;
     private ProducerProperties producer;
     private TopicProperties topic;
+
+    @Getter
+    @Setter
+    public static class Security {
+        private String protocol;
+    }
+
+    @Getter
+    @Setter
+    public static class KafkaSecurityProperties {
+        private String sslTruststoreLocation;
+        private String sslTruststorePassword;
+        private String sslKeystoreLocation;
+        private String sslKeystorePassword;
+        private String sslKeyPassword;
+    }
+
 
     @Getter
     @Setter
