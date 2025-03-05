@@ -6,14 +6,16 @@ services:
       - "9092:9092"
       - "9094:9094"
     volumes:
-      - "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets:/etc/kafka/secrets"
-      - "C:/Users/qkrckstjq/Desktop/backend/kafka/data:/var/lib/kafka/data"
-#    command: "sh -c 'set -x; /etc/kafka/docker/configure && /etc/kafka/docker/run'"
+      - "./secrets:/etc/kafka/secrets"
+      - "./data:/var/lib/kafka/data"
+    command: "sh -c 'set -x; /etc/kafka/docker/configure && /etc/kafka/docker/run'"
     user: root # root 권한으로 변경
     environment:
       KAFKA_KRAFT_MODE: 'true'
       CLUSTER_ID: "550e8400-e29b-41d4-a716-446655440000"
-#      KAFKA_BROKER_ID: 1
+      KAFKA_SSL_KEYSTORE_TYPE: PKCS12
+      KAFKA_SSL_TRUSTSTORE_TYPE: PKCS12
+
       KAFKA_LISTENERS: PLAINTEXT://kafka:9092, CONTROLLER://kafka:9093, SSL://kafka:9094
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092, SSL://localhost:9094
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT, CONTROLLER:PLAINTEXT, SSL:SSL
@@ -22,27 +24,16 @@ services:
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       KAFKA_PROCESS_ROLES: broker, controller
       KAFKA_NODE_ID: 1
-      KAFKA_SSL_KEYSTORE_FILENAME: kafka-client.keystore.jks
-#      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka-client.truststore.jks
-      KAFKA_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka-client.keystore.jks
+      KAFKA_SSL_KEYSTORE_FILENAME: keystore.p12
+      KAFKA_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/keystore.p12
       KAFKA_SSL_KEYSTORE_PASSWORD: qwer1234
       KAFKA_SSL_KEY_PASSWORD: qwer1234
-      KAFKA_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka-client.truststore.jks
-      KAFKA_SSL_TRUSTSTORE_PASSWORD: 1q2w3e4r
-#      KAFKA_SSL_CLIENT_AUTH: "required"
+
+      KAFKA_SSL_TRUSTSTORE_FILENAME: truststore.p12
+      KAFKA_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/truststore.p12
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: qwer1234
+      KAFKA_SSL_CLIENT_AUTH: "required"
 
       KAFKA_SSL_KEY_CREDENTIALS: kafka_sslkey_creds.txt
       KAFKA_SSL_KEYSTORE_CREDENTIALS: kafka_keystore_creds.txt
       KAFKA_SSL_TRUSTSTORE_CREDENTIALS: kafka_truststore_creds.txt
-
-#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-
-
-
-
-# keytool -genkey -alias kafka-cert -keyalg RSA -keystore kafka-client.keystore.jks -validity 365 -storepass qwer1234 -keypass qwer1234 -dname "CN=kafka, OU=IT, O=MyCompany, L=Seoul, C=KR"
-# keytool -export -alias kafka-cert -keystore kafka-client.keystore.jks -file kafka-cert.cer -storepass qwer1234
-# keytool -import -alias kafka-cert -file kafka-cert.cer -keystore kafka-client.truststore.jks -storepass 1q2w3e4r -noprompt
