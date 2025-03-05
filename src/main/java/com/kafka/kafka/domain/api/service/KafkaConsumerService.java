@@ -1,24 +1,23 @@
 package com.kafka.kafka.domain.api.service;
 
-import com.kafka.kafka.domain.api.dto.KafkaConsumerResponseDto.*;
+import com.kafka.kafka.domain.api.dto.KafkaConsumerResponseDto.KafkaConsumerTopicMsgDto;
 import com.kafka.kafka.global.properties.KafkaProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.*;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j(topic = "this line is a kafkaConsumer line")
 public class KafkaConsumerService {
     private final KafkaProperties kafkaProperties;
 
@@ -76,9 +75,10 @@ public class KafkaConsumerService {
         return newKafkaConsumer;
     }
 
-    @KafkaListener(topics = "test-topic", groupId = "test-group", containerFactory = "kafkaListenerContainerFactory")
-    public void getTopicTestTopic(ConsumerRecord<String, String> record) {
-        System.out.println(record.value());
+    @KafkaListener(topics = "test-topic")
+    public void getTopicTestTopic(String record) {
+        System.out.println(record);
+        System.out.println("=======================================");
     }
 
 }
