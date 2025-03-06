@@ -80,5 +80,4 @@ public class KafkaConsumerService {
         System.out.println(record);
         System.out.println("=======================================");
     }
-
 }

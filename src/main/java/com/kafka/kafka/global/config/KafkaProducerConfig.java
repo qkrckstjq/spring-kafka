@@ -20,6 +20,35 @@ public class KafkaProducerConfig {
     private final KafkaProperties kafkaProperties;
 
     @Bean
+    public ProducerFactory<String, String> normalProducerFactory() {
+        Map<String, Object> config = new HashMap<>();
+        ProducerProperties producerProperties = kafkaProperties.getProducer();
+        CommonProperties securityProperties = producerProperties.getProperties();
+        SslProperties sslProperties = securityProperties.getSsl();
+        StoreDetailsProperties keyStore = sslProperties.getKeyStore();
+        StoreDetailsProperties trustStore = sslProperties.getTrustStore();
+
+        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers()); // Kafka 서버 주소
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        config.put("security.protocol", "SSL");
+        config.put("ssl.keystore.type", keyStore.getType());
+        config.put("ssl.keystore.location", keyStore.getLocation());
+        config.put("ssl.keystore.password", keyStore.getPassword());
+        config.put("ssl.truststore.type", trustStore.getType());
+        config.put("ssl.truststore.location", trustStore.getLocation());
+        config.put("ssl.truststore.password", trustStore.getPassword());
+
+        return new DefaultKafkaProducerFactory<>(config);
+    }
+
+    @Bean("normalKafkaTemplate")
+    public KafkaTemplate<String, String> normalKafkaTemplate() {
+        return new KafkaTemplate<>(normalProducerFactory());
+    }
+
+    @Bean
     public ProducerFactory<String, String> batchProducerFactory() {
         Map<String, Object> config = new HashMap<>();
         ProducerProperties producerProperties = kafkaProperties.getProducer();
