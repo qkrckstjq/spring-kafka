@@ -19,6 +19,7 @@ public class KafkaProperties {
     private String sslTrustStoreType;
     private String sslTruststoreLocation;
     private String sslTruststorePassword;
+
     private ConsumerProperties consumer;
     private ProducerProperties producer;
     private TopicProperties topic;
@@ -29,35 +30,34 @@ public class KafkaProperties {
         private String protocol;
     }
 
-//    @Getter
-//    @Setter
-//    public static class KafkaSecurityProperties {
-//        private String sslKeyStoreType;
-//        private String sslKeystoreLocation;
-//        private String sslKeystorePassword;
-//        private String sslTrustStoreType;
-//        private String sslTruststoreLocation;
-//        private String sslTruststorePassword;
-//    }
+    @Getter
+    @Setter
+    public static class StoreDetailsProperties {
+        private String type;
+        private String location;
+        private String password;
+    }
+
+    @Getter
+    @Setter
+    public static class SslProperties {
+        private StoreDetailsProperties keyStore;
+        private StoreDetailsProperties trustStore;
+    }
+
+    @Getter
+    @Setter
+    public static class CommonProperties {
+        private KafkaSecurityProperties security;
+        private SslProperties ssl;
+    }
 
     @Getter
     @Setter
     public static class ConsumerProperties {
         private String groupId;
         private String autoOffsetReset;
-        private ConsumerSslProperties properties;
-
-        @Getter
-        @Setter
-        public static class ConsumerSslProperties {
-            private KafkaSecurityProperties security;
-            private String sslKeyStoreType;
-            private String sslKeystoreLocation;
-            private String sslKeystorePassword;
-            private String sslTrustStoreType;
-            private String sslTruststoreLocation;
-            private String sslTruststorePassword;
-        }
+        private CommonProperties properties;
     }
 
     @Getter
@@ -65,6 +65,7 @@ public class KafkaProperties {
     public static class ProducerProperties {
         private int retries ;
         private String acks;
+        private CommonProperties properties;
     }
 
     @Getter
