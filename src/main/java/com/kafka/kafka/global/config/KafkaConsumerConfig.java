@@ -31,9 +31,10 @@ public class KafkaConsumerConfig {
         StoreDetailsProperties trustStore = sslProperties.getTrustStore();
 
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
-        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getConsumer().getGroupId());
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, consumerProperties.getGroupId());
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        configProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         configProps.put("security.protocol", "SSL");
         configProps.put("ssl.keystore.type", keyStore.getType());
@@ -47,7 +48,7 @@ public class KafkaConsumerConfig {
     }
 
     @Bean("kafkaListenerContainerFactory")
-    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory(
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory (
             @Qualifier("normalConsumer") ConsumerFactory<String, String> consumerFactory) {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);

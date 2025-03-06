@@ -9,7 +9,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -67,17 +66,12 @@ public class KafkaConsumerService {
         consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        consumerProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
 
         KafkaConsumer<String, String> newKafkaConsumer = new KafkaConsumer<>(consumerProps);
         Collection<String> topicList = List.of(topic);
 
         newKafkaConsumer.subscribe(topicList);
         return newKafkaConsumer;
-    }
-
-    @KafkaListener(topics = "test-topic", groupId = "stranger", containerFactory = "kafkaListenerContainerFactory")
-    public void getTopicTestTopic(String record) {
-        System.out.println(record);
-        System.out.println("=======================================");
     }
 }
