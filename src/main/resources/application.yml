@@ -21,24 +21,30 @@ spring:
       properties:
         security:
           protocol: SSL
-        ssl.keystore.type: PKCS12
-        ssl.keystore.location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
-        ssl.keystore.password: qwer1234
-        ssl.truststore.type: PKCS12
-        ssl.truststore.location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/truststore.p12"
-        ssl.truststore.password: qwer1234
+        ssl:
+          keystore:
+            type: PKCS12
+            location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
+            password: qwer1234
+          truststore:
+            type: PKCS12
+            location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
+            password: qwer1234
     producer:
       retries: 3
       acks: all
       properties:
         security:
           protocol: SSL
-        ssl.keystore.type: PKCS12
-        ssl.keystore.location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
-        ssl.keystore.password: qwer1234
-        ssl.truststore.type: PKCS12
-        ssl.truststore.location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/truststore.p12"
-        ssl.truststore.password: qwer1234
+        ssl:
+          keystore:
+            type: PKCS12
+            location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
+            password: qwer1234
+          truststore:
+            type: PKCS12
+            location: "C:/Users/qkrckstjq/Desktop/backend/kafka/secrets/keystore.p12"
+            password: qwer1234
     topic:
       name: test-topic
       partitions: 3
