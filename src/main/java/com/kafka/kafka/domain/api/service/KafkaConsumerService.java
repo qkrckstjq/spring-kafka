@@ -75,7 +75,7 @@ public class KafkaConsumerService {
         return newKafkaConsumer;
     }
 
-    @KafkaListener(topics = "test-topic")
+    @KafkaListener(topics = "test-topic", groupId = "stranger")
     public void getTopicTestTopic(String record) {
         System.out.println(record);
         System.out.println("=======================================");

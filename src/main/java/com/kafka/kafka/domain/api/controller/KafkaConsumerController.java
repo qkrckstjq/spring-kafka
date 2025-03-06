@@ -1,14 +1,12 @@
 package com.kafka.kafka.domain.api.controller;
 
-import com.kafka.kafka.domain.api.dto.KafkaConsumerResponseDto.*;
+import com.kafka.kafka.domain.api.dto.KafkaConsumerResponseDto.KafkaConsumerTopicMsgDto;
 import com.kafka.kafka.domain.api.service.KafkaConsumerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/kafka/consumer")
