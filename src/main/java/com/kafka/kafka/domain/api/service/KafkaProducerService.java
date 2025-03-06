@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 //@RequiredArgsConstructor
 public class KafkaProducerService {
-    private final KafkaTemplate<String, String> normalKafkaTemplate;
-//    private final KafkaTemplate<String, String> batchKafkaTemplate;
+//    private final KafkaTemplate<String, String> normalKafkaTemplate;
+    private final KafkaTemplate<String, String> batchKafkaTemplate;
     private final KafkaProperties kafkaProperties;
 
     public KafkaProducerService(
-            @Qualifier("kafkaTemplate") KafkaTemplate<String, String> normalKafkaTemplate,
-//            @Qualifier("batchKafkaTemplate") KafkaTemplate<String, String> batchKafkaTemplate,
+//            @Qualifier("kafkaTemplate") KafkaTemplate<String, String> normalKafkaTemplate,
+            @Qualifier("batchKafkaTemplate") KafkaTemplate<String, String> batchKafkaTemplate,
             KafkaProperties kafkaProperties
     ) {
-        this.normalKafkaTemplate = normalKafkaTemplate;
-//        this.batchKafkaTemplate = batchKafkaTemplate;
+//        this.normalKafkaTemplate = normalKafkaTemplate;
+        this.batchKafkaTemplate = batchKafkaTemplate;
         this.kafkaProperties = kafkaProperties;
     }
 
@@ -28,7 +28,7 @@ public class KafkaProducerService {
         String topic = body.getTopic();
         String message = body.getMessage();
 
-        normalKafkaTemplate.send(topic, message);
+//        normalKafkaTemplate.send(topic, message);
         System.out.println("success to send message");
         return "success to send message " + message;
     }
@@ -38,7 +38,7 @@ public class KafkaProducerService {
         String topic = body.getTopic();
         String message = body.getMessage();
 
-//        batchKafkaTemplate.send(topic, message);
+        batchKafkaTemplate.send(topic, message);
         return "success to send message " + message;
     }
 }
